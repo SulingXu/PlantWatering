@@ -1,0 +1,8 @@
+[
+    {
+        "name": "Spathiphyllum",
+        "schedule": 2,
+        "nextWateringTime": "One day later",
+        "hasWatered": true,
+    }
+]
