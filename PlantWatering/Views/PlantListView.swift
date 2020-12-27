@@ -15,7 +15,6 @@ struct PlantListView: View {
                     PlantRowView(plant: plant)
                 }
             }
-            .navigationTitle("Plants")
         }
     }
 }
