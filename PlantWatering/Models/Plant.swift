@@ -14,9 +14,12 @@ struct Plant: Identifiable {
     }
     
     let name: String
-    let lastWateringTime: Date
+    var lastWateringTime: Date
     let schedule: Int
     var nextWateringTime: String
     var hasWatered: Bool
-    let image: Image 
+    let image: Image
+    
+    let description: String
+    
 }
