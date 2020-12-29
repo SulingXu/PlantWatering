@@ -12,7 +12,8 @@ struct PlantRowView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 15, content: {
-            RoundedRect(image: plant.image)
+            RoundedRect(image: plant.image, width: 120, height: 120)
+            
             VStack(alignment: .leading, spacing: 15, content: {
                 HStack {
                     Text(plant.name)
@@ -26,13 +27,16 @@ struct PlantRowView: View {
                         .font(.footnote)
                 })
             })
+            Spacer()
         })
     }
 }
 
 struct PlantRowView_Previews: PreviewProvider {
+    static var plants = ModelData().plants
+    
     static var previews: some View {
-        let plant = Plant(name: "Plant 1", lastWateringTime: Date(), schedule: 10, nextWateringTime: "1 day later", hasWatered: false, image: Image("Spathiphyllum"))
+        let plant = plants[0]
         PlantRowView(plant: plant)
             
     }

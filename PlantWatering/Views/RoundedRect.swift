@@ -8,6 +8,8 @@ import SwiftUI
 
 struct RoundedRect: View {
     var image: Image
+    var width: CGFloat
+    var height: CGFloat
     
     var body: some View {
         image
@@ -15,13 +17,13 @@ struct RoundedRect: View {
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 4))
             .shadow(radius: 7)
-            .frame(width: 120, height: 120)
+            .frame(width: width, height: height)
             
     }
 }
 
 struct RoundedRect_Previews: PreviewProvider {
     static var previews: some View {
-        RoundedRect(image: Image("Spathiphyllum"))
+        RoundedRect(image: Image("Spathiphyllum"), width: 120, height: 120)
     }
 }
