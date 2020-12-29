@@ -11,7 +11,7 @@ import SwiftUI
 struct PlantWateringApp: App {
     var body: some Scene {
         WindowGroup {
-            PlantListView()
+            PlantListView().environmentObject(ModelData())
         }
     }
 }
