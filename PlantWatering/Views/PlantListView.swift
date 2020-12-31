@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlantListView: View {
     @EnvironmentObject var modelData: ModelData
-    
+    @State private var showingPlantAdd = false
     var body: some View {
         NavigationView {
             List(modelData.plants) { plant in
@@ -18,6 +18,14 @@ struct PlantListView: View {
                 }
             }
             .navigationTitle("My Plants")
+            .navigationBarTitleDisplayMode(.large)
+            .navigationBarItems(trailing: Button(action: {
+                self.showingPlantAdd.toggle()
+            }) {
+                Image("add")
+            }.sheet(isPresented: $showingPlantAdd) {
+                PlantAddView()
+            })
         }
     }
 }
