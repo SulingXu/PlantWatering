@@ -13,10 +13,15 @@ struct Plant: Identifiable {
         self.name
     }
     
+    var nextWateringTime: Date {
+        var dateComponent = DateComponents()
+        dateComponent.day = schedule
+        return Calendar.current.date(byAdding: dateComponent, to: lastWateringTime)!
+    }
+    
     let name: String
     var lastWateringTime: Date
     let schedule: Int
-    var nextWateringTime: String
     var hasWatered: Bool
     let image: Image
     

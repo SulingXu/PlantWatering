@@ -11,7 +11,7 @@ struct PlantDetailView: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showingAlert = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+     
     var plant: Plant
     
     var plantIndex: Int {
@@ -38,49 +38,58 @@ struct PlantDetailView: View {
     var body: some View {
         VStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 10) {
-                    RoundedRect(image: plant.image, width: UIScreen.main.bounds.width-30, height: 300)
-                        .ignoresSafeArea(edges: .top)
-                    
-                    Text("\(plant.name)").font(.title)
-                        .foregroundColor(.primary)
-                    
-                    Text("Schedule: \(plant.schedule) days").font(.subheadline).foregroundColor(.secondary)
-                    
-                    Spacer()
-                        .frame(height: 10)
-                    
-                    HStack(alignment: .top, spacing: 15, content: {
-                        VStack(alignment: .leading, spacing: 5, content: {
-                            Text("Next watering:").font(.callout)
-                            Text("\(plant.nextWateringTime)").font(.footnote)
+                if (!modelData.plants.isEmpty) {
+                    VStack(alignment: .leading, spacing: 10) {
+                        RoundedRect(image: plant.image, width: UIScreen.main.bounds.width-30, height: 350)
+                            .ignoresSafeArea(edges: .top)
+                        
+                        Text("\(plant.name)").font(.title)
+                            .foregroundColor(.primary)
+                        
+                        Text("Schedule: \(plant.schedule) days").font(.subheadline).foregroundColor(.secondary)
+                        
+                        Spacer()
+                            .frame(height: 10)
+                        
+                        HStack(alignment: .top, spacing: 15, content: {
+                            VStack(alignment: .leading, spacing: 5, content: {
+                                Text("Next watering:").font(.callout)
+                                if (modelData.plants[plantIndex].nextWateringTime < Date()){
+                                Text("\(Date(), formatter: Self.taskDateFormat)").font(.footnote)
+                                    
+                                Text("\(Date(), formatter: Self.taskTimeFormat)").font(.footnote)
+                                }else {
+                                    Text("\(modelData.plants[plantIndex].nextWateringTime, formatter: Self.taskDateFormat)").font(.footnote)
+                                        
+                                    Text("\(modelData.plants[plantIndex].nextWateringTime, formatter: Self.taskTimeFormat)").font(.footnote)
+                                }
+                            })
+                            
+                            Spacer()
+                            
+                            VStack(alignment: .leading, spacing: 5, content: {
+                                Text("Last watering:").font(.callout)
+                                Text("\(modelData.plants[plantIndex].lastWateringTime, formatter: Self.taskDateFormat)").font(.footnote)
+                                    
+                                Text("\(modelData.plants[plantIndex].lastWateringTime, formatter: Self.taskTimeFormat)").font(.footnote)
+                            })
+                
                         })
                         
                         Spacer()
+                            .frame(height: 5)
                         
-                        VStack(alignment: .leading, spacing: 5, content: {
-                            Text("Last watering:").font(.callout)
-                            Text("\(modelData.plants[plantIndex].lastWateringTime, formatter: Self.taskDateFormat)").font(.footnote)
-                                
-                            Text("\(modelData.plants[plantIndex].lastWateringTime, formatter: Self.taskTimeFormat)").font(.footnote)
-                        })
-            
-                    })
-                    
-                    Spacer()
-                        .frame(height: 5)
-                    
-                    Divider()
-                    
-                    Text("About \(plant.name)")
-                        .font(.title2)
-                    
-                    Text(plant.description)
-                    
+                        Divider()
+                        
+                        Text("About \(plant.name)")
+                            .font(.title2)
+                        
+                        Text(plant.description)
+                        
+                    }
+                    .padding()
                 }
-                .padding()
             }
-            
             Button(action: {
                 modelData.plants[plantIndex].lastWateringTime = Date()
             }) {
