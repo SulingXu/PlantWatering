@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct PlantListView: View {
+    @EnvironmentObject var modelData: ModelData
+    
     var body: some View {
         NavigationView {
-            List(plants) { plant in
+            List(modelData.plants) { plant in
                  NavigationLink(destination: PlantDetailView(plant: plant)) {
                     PlantRowView(plant: plant)
                 }
             }
+            .navigationTitle("My Plants")
         }
     }
 }
@@ -22,5 +25,6 @@ struct PlantListView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         PlantListView()
+            .environmentObject(ModelData())
     }
 }
