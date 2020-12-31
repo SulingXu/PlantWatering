@@ -147,7 +147,7 @@ struct PlantAddView: View {
                                                dismissButton: .default(Text("Got it!")))
                 }else if isIdenticalName {
                     self.alertItem = AlertItem(title: Text("Wrong Name Input!"),
-                                               message: Text("This Plant name has existed! Please input another plant's name."),
+                                               message: Text("This name has existed! Please input another plant's name."),
                                                dismissButton: .default(Text("Got it!")))
                 } else if Int(self.schedule) == 0 {
                     self.alertItem = AlertItem(title: Text("Wrong Schedule Input!"),
