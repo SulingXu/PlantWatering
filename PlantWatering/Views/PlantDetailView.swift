@@ -55,9 +55,7 @@ struct PlantDetailView: View {
                             VStack(alignment: .leading, spacing: 5, content: {
                                 Text("Next watering:").font(.callout)
                                 if (modelData.plants[plantIndex].nextWateringTime < Date()){
-                                Text("\(Date(), formatter: Self.taskDateFormat)").font(.footnote)
-                                    
-                                Text("\(Date(), formatter: Self.taskTimeFormat)").font(.footnote)
+                                    Text("Today")
                                 }else {
                                     Text("\(modelData.plants[plantIndex].nextWateringTime, formatter: Self.taskDateFormat)").font(.footnote)
                                         
