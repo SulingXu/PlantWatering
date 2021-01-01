@@ -20,7 +20,7 @@ struct PlantAddView: View {
     @State private var schedule: Double = 0
     
     @State private var alertItem: AlertItem?
-    @ObservedObject private var kGuardian = KeyboardGuardian(textFieldCount: 1)
+    @ObservedObject private var kGuardian = KeyboardGuardian(textFieldCount: 2)
     
     var isIdenticalName: Bool {
         for plant in modelData.plants {
@@ -73,8 +73,9 @@ struct PlantAddView: View {
                     Text("Plant's name:")
                         .font(.callout)
                         .bold()
-                    TextField("Enter plant name...", text: $plantName)
+                    TextField("Enter plant name...", text: $plantName, onEditingChanged: { if $0 { self.kGuardian.showField = 0 }})
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .background(GeometryGetter(rect: $kGuardian.rects[0]))
                     
                     Spacer()
                         .frame(height: 18)
@@ -89,21 +90,14 @@ struct PlantAddView: View {
                         onEditingChanged: { editing in
                             isScheduleEditing = editing
                         },
-                        minimumValueLabel: Text("0"),
-                        maximumValueLabel: Text("30")
-                    ) {
-                        Text("Schedule")
-                    }.accentColor(.green)
+                        minimumValueLabel: Text("0 day"),
+                        maximumValueLabel: Text("30 days")
+                    ){}.accentColor(.green)
                     
-                    if (Int(schedule) <= 1) {
-                        Text("watering schedule is \(Int(schedule)) day")
-                            .foregroundColor(isScheduleEditing ? .red : .blue)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                    } else {
-                        Text("watering schedule is \(Int(schedule)) days")
-                            .foregroundColor(isScheduleEditing ? .red : .blue)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                    }
+                    Text("watering schedule: \(Int(schedule))")
+                        .foregroundColor(isScheduleEditing ? .red : .blue)
+                        .frame(maxWidth: .infinity, alignment: .center)
+
             
                     Spacer()
                         .frame(height: 20)
@@ -111,15 +105,17 @@ struct PlantAddView: View {
                     Text("Description:")
                         .font(.callout)
                         .bold()
-                    TextField("Enter plant name...",text: $description)
+                    TextField("Enter plant name...",text: $description, onEditingChanged: { if $0 { self.kGuardian.showField = 1 }})
                         .disableAutocorrection(true)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .background(GeometryGetter(rect: $kGuardian.rects[0]))
+                        .background(GeometryGetter(rect: $kGuardian.rects[1]))
     
                 }
                 .offset(y: kGuardian.slide).animation(.easeInOut(duration: 1.0))
                 .padding()
-            }
+            }.onAppear { self.kGuardian.addObserver() }
+            .onDisappear { self.kGuardian.removeObserver() }
+            
             .navigationBarTitle("Add a new plant")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: self.$isImagePickerDisplay) {
