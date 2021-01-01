@@ -26,7 +26,8 @@ struct PlantRowView: View {
                 
                 Spacer()
                     .frame(height: 5)
-                Text("\(plant.nextWateringTime, formatter: PlantDetailView.taskDateFormat)").font(.footnote)
+                
+                Text("\(plant.diffInDays)").font(.footnote)
             })
         })
     }
