@@ -40,7 +40,7 @@ struct PlantDetailView: View {
             ScrollView {
                 if (!modelData.plants.isEmpty) {
                     VStack(alignment: .leading, spacing: 10) {
-                        RoundedRect(image: plant.image, width: UIScreen.main.bounds.width-30, height: 350)
+                        RoundedRect(image: plant.image, width: UIScreen.main.bounds.width-30, height: 400)
                             .ignoresSafeArea(edges: .top)
                         
                         Text("\(plant.name)").font(.title)
@@ -54,22 +54,17 @@ struct PlantDetailView: View {
                         HStack(alignment: .top, spacing: 15, content: {
                             VStack(alignment: .leading, spacing: 5, content: {
                                 Text("Next watering:").font(.callout)
-                                if (modelData.plants[plantIndex].nextWateringTime < Date()){
-                                    Text("Today")
-                                }else {
-                                    Text("\(modelData.plants[plantIndex].nextWateringTime, formatter: Self.taskDateFormat)").font(.footnote)
-                                        
-                                    Text("\(modelData.plants[plantIndex].nextWateringTime, formatter: Self.taskTimeFormat)").font(.footnote)
-                                }
+                                Text("\(plant.nextWateringTime, formatter: PlantDetailView.taskDateFormat)").font(.footnote)
+                                Text("\(plant.nextWateringTime, formatter: Self.taskTimeFormat)").font(.footnote)
                             })
                             
                             Spacer()
                             
                             VStack(alignment: .leading, spacing: 5, content: {
                                 Text("Last watering:").font(.callout)
-                                Text("\(modelData.plants[plantIndex].lastWateringTime, formatter: Self.taskDateFormat)").font(.footnote)
+                                Text("\(plant.lastWateringTime, formatter: Self.taskDateFormat)").font(.footnote)
                                     
-                                Text("\(modelData.plants[plantIndex].lastWateringTime, formatter: Self.taskTimeFormat)").font(.footnote)
+                                Text("\(plant.lastWateringTime, formatter: Self.taskTimeFormat)").font(.footnote)
                             })
                 
                         })
