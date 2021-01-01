@@ -17,6 +17,7 @@ struct RoundedRect: View {
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 4))
             .shadow(radius: 7)
+            .aspectRatio(contentMode: .fit)
             .frame(width: width, height: height)
             
     }
