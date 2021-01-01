@@ -16,11 +16,11 @@ struct PlantAddView: View {
     
     @State var plantName: String = ""
     @State private var isScheduleEditing = false
-    @State private var isNameEditing = false
     @State var description: String = ""
     @State private var schedule: Double = 0
     
     @State private var alertItem: AlertItem?
+    @ObservedObject private var kGuardian = KeyboardGuardian(textFieldCount: 1)
     
     var isIdenticalName: Bool {
         for plant in modelData.plants {
@@ -34,27 +34,19 @@ struct PlantAddView: View {
     
     var body: some View {
         NavigationView {
-            List {
+            VStack {
                 if selectedImage != nil {
-                    HStack {
-                        Spacer()
-                        Image(uiImage: selectedImage!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .clipShape(Circle())
-                            .frame(width: 300, height: 300)
-                        Spacer()
-                    }
+                    Image(uiImage: selectedImage!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(Circle())
+                    
                 } else {
-                    HStack {
-                        Spacer()
-                        Image(systemName: "snow")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .frame(width: 200, height: 200)
-                        Spacer()
-                    }
+                    Image(systemName: "snow")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .frame(width: 200, height: 200)
                 }
                 
                 HStack {
@@ -81,9 +73,8 @@ struct PlantAddView: View {
                     Text("Plant's name:")
                         .font(.callout)
                         .bold()
-                    TextField("Enter plant name...", text: $plantName, onEditingChanged: {(changed) in
-                        isNameEditing = changed
-                    })
+                    TextField("Enter plant name...", text: $plantName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                     
                     Spacer()
                         .frame(height: 18)
@@ -120,12 +111,13 @@ struct PlantAddView: View {
                     Text("Description:")
                         .font(.callout)
                         .bold()
-                    TextEditor(text: $description)
+                    TextField("Enter plant name...",text: $description)
                         .disableAutocorrection(true)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                    
+                        .background(GeometryGetter(rect: $kGuardian.rects[0]))
+    
                 }
+                .offset(y: kGuardian.slide).animation(.easeInOut(duration: 1.0))
                 .padding()
             }
             .navigationBarTitle("Add a new plant")
