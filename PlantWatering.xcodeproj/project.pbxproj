@@ -16,8 +16,6 @@
 		6466FB81259C93FC00F999D9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6466FB80259C93FC00F999D9 /* ImagePicker.swift */; };
 		6466FB8C259C985900F999D9 /* PlantAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6466FB8B259C985900F999D9 /* PlantAddView.swift */; };
 		64BC1703259D1B6F007E769B /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BC1702259D1B6F007E769B /* AlertItem.swift */; };
-		64BC1708259DF586007E769B /* GeometryGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BC1707259DF586007E769B /* GeometryGetter.swift */; };
-		64BC170D259DF5CC007E769B /* KeyboardGuardian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BC170C259DF5CC007E769B /* KeyboardGuardian.swift */; };
 		64D6327225972C60005ADB3F /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D6327125972C60005ADB3F /* Plant.swift */; };
 		64D6327725972F64005ADB3F /* PlantRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D6327625972F64005ADB3F /* PlantRowView.swift */; };
 		64D6327C2597336F005ADB3F /* PlantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D6327B2597336F005ADB3F /* PlantDetailView.swift */; };
@@ -59,8 +57,6 @@
 		6466FB80259C93FC00F999D9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		6466FB8B259C985900F999D9 /* PlantAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantAddView.swift; sourceTree = "<group>"; };
 		64BC1702259D1B6F007E769B /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
-		64BC1707259DF586007E769B /* GeometryGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryGetter.swift; sourceTree = "<group>"; };
-		64BC170C259DF5CC007E769B /* KeyboardGuardian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardGuardian.swift; sourceTree = "<group>"; };
 		64D6327125972C60005ADB3F /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		64D6327625972F64005ADB3F /* PlantRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRowView.swift; sourceTree = "<group>"; };
 		64D6327B2597336F005ADB3F /* PlantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailView.swift; sourceTree = "<group>"; };
@@ -161,8 +157,6 @@
 				640DD6C7259729CC007A2BE0 /* Assets.xcassets */,
 				6466FB80259C93FC00F999D9 /* ImagePicker.swift */,
 				64BC1702259D1B6F007E769B /* AlertItem.swift */,
-				64BC1707259DF586007E769B /* GeometryGetter.swift */,
-				64BC170C259DF5CC007E769B /* KeyboardGuardian.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -326,14 +320,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				640DD6C6259729C7007A2BE0 /* PlantListView.swift in Sources */,
-				64BC170D259DF5CC007E769B /* KeyboardGuardian.swift in Sources */,
 				64D6327225972C60005ADB3F /* Plant.swift in Sources */,
 				640DD6C4259729C7007A2BE0 /* PlantWateringApp.swift in Sources */,
 				64BC1703259D1B6F007E769B /* AlertItem.swift in Sources */,
 				64D6327725972F64005ADB3F /* PlantRowView.swift in Sources */,
 				64D632982597D005005ADB3F /* RoundedRect.swift in Sources */,
 				6466FB81259C93FC00F999D9 /* ImagePicker.swift in Sources */,
-				64BC1708259DF586007E769B /* GeometryGetter.swift in Sources */,
 				64D6327C2597336F005ADB3F /* PlantDetailView.swift in Sources */,
 				64D632812597A4AD005ADB3F /* ModelData.swift in Sources */,
 				6466FB8C259C985900F999D9 /* PlantAddView.swift in Sources */,

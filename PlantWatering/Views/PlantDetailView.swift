@@ -42,6 +42,7 @@ struct PlantDetailView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         RoundedRect(image: plant.image, width: UIScreen.main.bounds.width-30, height: 400)
                             .ignoresSafeArea(edges: .top)
+                            .aspectRatio(contentMode: .fill)
                         
                         Text("\(plant.name)").font(.title)
                             .foregroundColor(.primary)

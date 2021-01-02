@@ -13,6 +13,7 @@ struct PlantRowView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 20, content: {
             RoundedRect(image: plant.image, width: 120, height: 120)
+                .scaledToFit()
             
             VStack(alignment: .leading, content: {
                 Text(plant.name)

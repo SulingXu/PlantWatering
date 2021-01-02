@@ -20,7 +20,6 @@ struct PlantAddView: View {
     @State private var schedule: Double = 0
     
     @State private var alertItem: AlertItem?
-    @ObservedObject private var kGuardian = KeyboardGuardian(textFieldCount: 2)
     
     var isIdenticalName: Bool {
         for plant in modelData.plants {
@@ -30,23 +29,74 @@ struct PlantAddView: View {
         }
         return false
     }
-
+    
     
     var body: some View {
         NavigationView {
             VStack {
-                if selectedImage != nil {
-                    Image(uiImage: selectedImage!)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .clipShape(Circle())
+                List {
+                    if selectedImage != nil {
+                        HStack {
+                            Spacer()
+                            Image(uiImage: selectedImage!)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(Circle())
+                                .frame(width: 300, height: 300)
+                            Spacer()
+                        }
+                    } else {
+                        HStack {
+                            Spacer()
+                            Image(systemName: "snow")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .frame(width: 300, height: 300)
+                            Spacer()
+                        }
+                    }
                     
-                } else {
-                    Image(systemName: "snow")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .frame(width: 200, height: 200)
+                    VStack(alignment: .leading){
+                        Text("Plant's name:")
+                            .font(.callout)
+                            .bold()
+                        TextField("Enter plant name...", text: $plantName)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                        
+                        Spacer()
+                            .frame(height: 18)
+                        
+                        Text("Description:")
+                            .font(.callout)
+                            .bold()
+                        TextField("Enter plant name...",text: $description)
+                            .disableAutocorrection(true)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                        Spacer()
+                            .frame(height: 20)
+                        
+                        Text("Schedule:")
+                            .font(.callout)
+                            .bold()
+                        Slider(
+                            value: $schedule,
+                            in: 1...30,
+                            step: 1,
+                            onEditingChanged: { editing in
+                                isScheduleEditing = editing
+                            },
+                            minimumValueLabel: Text("0 day"),
+                            maximumValueLabel: Text("30 days")
+                        ){}.accentColor(.green)
+                        
+                        Text("watering schedule: \(Int(schedule))")
+                            .foregroundColor(isScheduleEditing ? .red : .blue)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
+                    .padding()
                 }
                 
                 HStack {
@@ -57,7 +107,6 @@ struct PlantAddView: View {
                         Image(systemName: "camera")
                     }
                     .padding()
-                    .buttonStyle(BorderlessButtonStyle())
                     
                     Button(action: {
                         self.sourceType = .photoLibrary
@@ -66,56 +115,8 @@ struct PlantAddView: View {
                         Image("photoLibrary")
                     }
                     .padding()
-                    .buttonStyle(BorderlessButtonStyle())
-                }
-                
-                VStack(alignment: .leading){
-                    Text("Plant's name:")
-                        .font(.callout)
-                        .bold()
-                    TextField("Enter plant name...", text: $plantName, onEditingChanged: { if $0 { self.kGuardian.showField = 0 }})
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .background(GeometryGetter(rect: $kGuardian.rects[0]))
-                    
-                    Spacer()
-                        .frame(height: 18)
-                    
-                    Text("Schedule:")
-                        .font(.callout)
-                        .bold()
-                    Slider(
-                        value: $schedule,
-                        in: 1...30,
-                        step: 1,
-                        onEditingChanged: { editing in
-                            isScheduleEditing = editing
-                        },
-                        minimumValueLabel: Text("0 day"),
-                        maximumValueLabel: Text("30 days")
-                    ){}.accentColor(.green)
-                    
-                    Text("watering schedule: \(Int(schedule))")
-                        .foregroundColor(isScheduleEditing ? .red : .blue)
-                        .frame(maxWidth: .infinity, alignment: .center)
-
-            
-                    Spacer()
-                        .frame(height: 20)
-                    
-                    Text("Description:")
-                        .font(.callout)
-                        .bold()
-                    TextField("Enter plant name...",text: $description, onEditingChanged: { if $0 { self.kGuardian.showField = 1 }})
-                        .disableAutocorrection(true)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .background(GeometryGetter(rect: $kGuardian.rects[1]))
-    
-                }
-                .offset(y: kGuardian.slide).animation(.easeInOut(duration: 1.0))
-                .padding()
-            }.onAppear { self.kGuardian.addObserver() }
-            .onDisappear { self.kGuardian.removeObserver() }
-            
+                }.buttonStyle(BorderlessButtonStyle())
+            }
             .navigationBarTitle("Add a new plant")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: self.$isImagePickerDisplay) {
@@ -142,7 +143,7 @@ struct PlantAddView: View {
                                                message: Text("The Schedule cannot be 0 day! Please select your plant's watering schedule."),
                                                dismissButton: .default(Text("Got it!")))
                 } else {
-                modelData.plants.append(Plant(name: self.plantName, lastWateringTime: Date(), schedule: Int(self.schedule), hasWatered: true, image: Image(uiImage: selectedImage!), description: self.description))
+                    modelData.plants.append(Plant(name: self.plantName, lastWateringTime: Date(), schedule: Int(self.schedule), hasWatered: true, image: Image(uiImage: selectedImage!), description: self.description))
                     self.presentationMode.wrappedValue.dismiss()
                 }
             }) {
