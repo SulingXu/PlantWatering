@@ -11,23 +11,25 @@ struct PlantRowView: View {
     var plant: Plant
     
     var body: some View {
-        HStack(alignment: .center, spacing: 15, content: {
+        HStack(alignment: .center, spacing: 20, content: {
             RoundedRect(image: plant.image, width: 120, height: 120)
+                .scaledToFit()
             
-            VStack(alignment: .leading, spacing: 15, content: {
-                HStack {
-                    Text(plant.name)
-                        .font(.title)
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                }
-                HStack(spacing: 5, content: {
-                    Text("Next watering:")
-                        .font(.callout)
-                    Text("\(plant.nextWateringTime)")
-                        .font(.footnote)
-                })
+            VStack(alignment: .leading, content: {
+                Text(plant.name)
+                    .font(.title)
+                    .fontWeight(.bold)
+                Spacer()
+                    .frame(height: 15)
+                
+                Text("Next watering:")
+                    .font(.callout)
+                
+                Spacer()
+                    .frame(height: 5)
+                
+                Text("\(plant.diffInDays)").font(.footnote)
             })
-            Spacer()
         })
     }
 }
